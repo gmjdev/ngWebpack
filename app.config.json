@@ -1,0 +1,36 @@
+{
+    "directory": {
+        "src": "src",
+        "app": "app",
+        "assets": "assets",
+        "build": "dist",
+        "temp": "tmp",
+        "reports": "reports",
+        "nodeModule": "node_modules",
+        "bowerComponents": "bower_components"
+    },
+    "templatePage": "src/index.template.ejs",
+    "allowedExtensions": [".ts", ".ejs", ".js", ".css", ".scss", ".sass", ".json"],
+    "tsConfig": {
+        "appEntry": [
+            "src/main.ts"
+        ],
+        "vendorEntry": [
+            "src/vendor.ts"
+        ],
+        "polyFills": [
+            "src/polyfills.ts"
+        ]
+    },
+    "webpackConfig": {
+
+    },
+    "sassConfig": {
+
+    },
+    "server": {
+        "port": "9800",
+        "host": "localhost",
+        "protocol": "http"
+    }
+}

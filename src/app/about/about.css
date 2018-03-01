@@ -1,0 +1,9 @@
+.about-css-1 {
+    border: 1px solid black;
+}
+
+.about-css {
+    border: 1px solid black;
+    border-radius: 1px;
+    display: flex;
+}

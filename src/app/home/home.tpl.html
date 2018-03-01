@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-md-6">
+        <h2>Weather Database Information Service</h2>
+        <div>
+            <form class="form-group" #weatherForm="ngForm">
+                <div class="form-group">
+                    <label for="city">Enter City Name:</label>
+                    <input required type="text" #city="ngModel" class="form-control" name="city" id="city" [(ngModel)]="model.name" />
+                    <div [hidden]="city.valid || city.pristine" class="alert alert-danger">
+                        City Name is required
+                    </div>
+                </div>
+                <button type="button" class="btn btn-info" (click)="getWeatherInfo()">Retrieve Weather Details</button>
+
+            </form>
+            <div *ngIf="weatherDataAvailable">
+                <h4>Retrieved Weather Information</h4>
+                <div *ngFor="let wt of weathers">
+                    <p>City Name : {{wt.name}}</p>
+                    <p>Humidity : {{wt.humidity}}</p>
+                    <p>Pressure : {{wt.pressure}}</p>
+                    <p>Temp : {{wt.temp}}</p>
+                    <p>Temp Max : {{wt.temp_max}}</p>
+                    <p>Temp Min : {{wt.temp_min}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam accumsan dapibus enim, at sodales ex. Ut vehicula rhoncus
+    metus, eu dignissim risus malesuada in. Maecenas nec erat eu leo dapibus auctor. Praesent at metus vel nibh egestas sollicitudin.
+    Morbi ac orci in ligula malesuada vehicula. Sed sit amet scelerisque velit. Mauris eu lorem nunc. Donec ex felis, rhoncus
+    sit amet lectus at, rhoncus interdum elit. Maecenas at tempus elit. Suspendisse ultrices placerat vestibulum.</p>
+
+<p>Proin id faucibus purus, consequat laoreet urna. Donec non sem dapibus, feugiat orci ac, convallis leo. Morbi id ex sed augue
+    consequat pulvinar sed ultrices augue. Aenean blandit nunc ut elit fringilla, sed consequat lectus varius. Ut scelerisque
+    pellentesque tellus, non ornare sem lobortis nec. In gravida ligula nisl, nec mattis sem rhoncus eget. Ut lobortis ex
+    et velit finibus, sed feugiat nulla ultricies. Suspendisse porta dui ut ligula posuere, sit amet aliquet est porta. Pellentesque
+    massa nisi, maximus eget metus eu, egestas vehicula mauris. Cras euismod enim dolor, vel venenatis mauris aliquet sed.
+    Aenean fringilla, ex nec cursus dictum, libero magna tincidunt diam, at euismod nisl lectus at felis. Cras et odio et
+    dui bibendum porttitor nec sed magna.
+</p>
+
+<p>Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras imperdiet tempus malesuada. Nunc
+    interdum lacus vitae risus luctus, sed egestas est efficitur. Mauris ornare congue est vitae lobortis. Sed justo lectus,
+    vehicula a sollicitudin a, auctor in eros. Donec efficitur ante et lacus ornare consequat. Mauris quis quam auctor, venenatis
+    erat eu, euismod turpis. Praesent elementum pretium ligula, id lacinia nisl maximus sed. Aliquam at orci maximus lorem
+    maximus eleifend. Suspendisse rhoncus semper magna, eu eleifend metus placerat id. Donec auctor lacus efficitur consectetur
+    tincidunt. Sed ac auctor ligula, eu porttitor mi. Nulla varius diam interdum fringilla efficitur. Nullam malesuada id
+    felis vel aliquam. Vivamus et finibus ante. Pellentesque euismod enim a posuere bibendum.</p>

@@ -1,0 +1,75 @@
+@import "home/home";
+@import "about/about";
+@import "common/common";
+.main-scss {
+    padding: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+    display: block;
+    color: red;
+}
+
+.main-container {
+    margin-top: 5em;
+}
+
+.page-footer {
+    padding: 0.8em 0 0 0;
+    margin-top: 2em;
+}
+
+nav.navbar .ng-brand-icon {
+    padding: 8px 15px;
+}
+
+.app-body-content,
+.page-body {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.app-scss {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+footer {
+    background-color: #1E2629;
+    color: white;
+    padding-bottom: 20px;
+    @media screen and (max-width: 575px) {
+        .social-info-container, .social-logo-container, .copyright {
+            text-align: center;
+        }
+    }
+    ul li {
+        font-weight: 400;
+    }
+    ul,
+    p {
+        margin-bottom: 0;
+    }
+    .footer-social {
+        .social-icon {
+            margin-top: 10px;
+        }
+        .info,
+        .num {
+            font-size: small;
+        }
+        .fa-github {
+            padding: 0 10px;
+        }
+        .fa-google-plus {
+            padding: 0 10px;
+        }
+        .fa-facebook {
+            padding: 0 15px;
+        }
+    }
+}

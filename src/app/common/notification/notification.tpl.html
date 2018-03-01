@@ -1,0 +1,22 @@
+<div *ngIf="alert.active" class="notification-container" [ngClass]="{
+    'bg-success text-white':alert.type === 'success',
+    'bg-danger text-white':alert.type === 'error',
+    'bg-warning text-dark':alert.type === 'warn',
+    'bg-info text-white':alert.type === 'info',
+    'bg-primary text-white':alert.type === ''
+}">
+    <div class="close-btn" *ngIf="alert.cancellable">
+        <button type="button" class="close" aria-label="Close" (click)=onCloseBtnClick($event)>
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="container-fluid">
+        <div class="container">
+            <div class="d-flex flex-row align-items-center">
+                <span class="alert-icon" [ngClass]="alert.alertIconCls"></span>
+                <span class="alert-msg" [innerHTML]="alert.msg">
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

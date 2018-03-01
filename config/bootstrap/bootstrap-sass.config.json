@@ -1,0 +1,16 @@
+﻿{
+    "useFlexbox": true,
+    "loglevel": "error",
+    "bootstrapVersion": 4,
+    "useCustomIconFontPath": true,
+    "styleLoaders": [
+        "style-loader",
+        "css-loader",
+        "sass-loader"
+    ],
+    "extractStyles": true,
+    "styles": true,
+    "scripts": true,
+    "appStyles": "../../src/main.scss",
+    "bootstrapCustomizations": "../../src/app/app-theme/app-theme.scss"
+}

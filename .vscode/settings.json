@@ -1,0 +1,13 @@
+{
+    "typescript.check.workspaceVersion": false,
+    "beautify.onSave": true,
+    "editor.formatOnSave": true,
+    "editor.wordWrap": "on",
+    "beautify.JSfiles": [
+        "js",
+        "json",
+        "jsbeautifyrc",
+        "jshintrc",
+        "ts"
+    ]
+}

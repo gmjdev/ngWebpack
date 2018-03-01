@@ -1,0 +1,23 @@
+.login-panel-parent {
+    margin: 5em auto auto;
+    width: 320px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #000;
+}
+
+.login-panel-parent h1 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#login-box,
+.login-panel {
+    background-color: #cccccc;
+    border-radius: .4em;
+    padding: 15px 15px 10px;
+}
+
+@media (max-width: 768px) {}
+
+@media (min-width: 768px) {}
