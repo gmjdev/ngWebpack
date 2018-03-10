@@ -42,8 +42,10 @@
     var sourceAppDir = helpers.resolvePathFromCwd(appConfig.appSourceDir());
     var isProd = environments.production();
     var autoprefixer = require('autoprefixer');
+
     var bootstrapSassBuild = 'bootstrap-loader/lib/bootstrap.loader?extractStyles&configFilePath=./config/bootstrap/bootstrap-sass.config.json!bootstrap-loader/no-op.js';
     bootstrapSassBuild = 'bootstrap-loader/lib/bootstrap.loader?extractStyles&configFilePath=' + __dirname + '/bootstrap/bootstrap-sass.config.json!bootstrap-loader/no-op.js';
+
     var fontAwesome = 'font-awesome-webpack-sass!./config/font-awesome/font-awesome.config.js';
     polyfills = helpers.prependString(appConfig.tsPolyfillsFile, ROOT);
     vendor = helpers.prependString(appConfig.tsVendorFile, ROOT);
@@ -55,6 +57,8 @@
     } else if (_.isArray(vendor)) {
         vendors = _.flattenDeep(vendor.concat(vendors));
     }
+    var extractSass = new ExtractTextPlugin(appConfig.bundleName.css);
+
     module.exports = {
         context: cwd,
         entry: {
@@ -79,75 +83,102 @@
         },
         module: {
             rules: [{
-                test: /bootstrap\/dist\/js\/umd\//,
-                loader: 'imports-loader?jQuery=jquery'
-            }, {
-                test: /\.ts$/,
-                loaders: [
-                    'awesome-typescript-loader',
-                    'angular2-template-loader'
-                ],
-                exclude: [/\.(spec|e2e)\.ts$/]
-            }, {
-                test: /\.html$/,
-                loader: 'html-loader'
-            }, {
-                test: /\.(png|jpe?g|gif|ico)$/,
-                loader: 'file-loader?name=' + appConfig.imagesAssetsDir() + appConfig.assetsName.image
-            }, {
-                test: /\.css$/,
-                exclude: helpers.root(appConfig.directory.src, appConfig.directory.app),
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader'
-                })
-            }, {
-                test: /\.css$/,
-                include: helpers.root(appConfig.directory.src, appConfig.directory.app),
-                loader: 'raw-loader'
-            }, {
-                test: /\.s(c|a)ss$/,
-                include: helpers.root(appConfig.directory.src, appConfig.directory.app),
-                use: [
-                    'raw-loader',
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            importLoaders: 1,
+                    test: /bootstrap\/dist\/js\/umd\//,
+                    loader: 'imports-loader?jQuery=jquery'
+                }, {
+                    test: /\.ts$/,
+                    loaders: [
+                        'awesome-typescript-loader',
+                        'angular2-template-loader'
+                    ],
+                    exclude: [/\.(spec|e2e)\.ts$/]
+                }, {
+                    test: /\.html$/,
+                    loader: 'html-loader'
+                }, {
+                    test: /\.(png|jpe?g|gif|ico)$/,
+                    loader: 'file-loader?name=' + appConfig.imagesAssetsDir() + appConfig.assetsName.image
+                }, {
+                    test: /\.css$/,
+                    exclude: helpers.root(appConfig.directory.src, appConfig.directory.app),
+                    loader: ExtractTextPlugin.extract({
+                        fallback: 'raw-loader',
+                        use: ['css-loader?sourceMap']
+                    })
+                }, {
+                    test: /\.css$/,
+                    include: helpers.root(appConfig.directory.src, appConfig.directory.app),
+                    loader: 'raw-loader'
+                }, {
+                    test: /\.s(c|a)ss$/,
+                    exclude: /node_modules/,
+                    include: helpers.root(appConfig.directory.src, appConfig.directory.app),
+                    use: [
+                        'raw-loader',
+                        'resolve-url-loader',
+                        {
+                            loader: "sass-loader",
+                            options: {
+                                sourceMap: true
+                            }
                         }
-                    },
-                    'resolve-url-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            path: './postcss.config.js'
-                        }
-                    },
-                    {
-                        loader: "sass-loader?sourceMap",
-                        options: {
-                            sourceMap: true
-                        }
-                    }
-                ]
-                // loaders: ['raw-loader', 'style-loader', 'css-loader', 'resolve-url-loader', 'sass-loader?sourceMap']
-            }, {
-                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=' +
-                    appConfig.fontAssetsDir() + appConfig.assetsName.font
-            }, {
-                test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: 'file-loader?name=' + appConfig.fontAssetsDir() + appConfig.assetsName.font
-            }, {
-                test: /\.json$/,
-                loader: 'json-loader'
-            }, {
-                test: /\.ejs$/,
-                use: [{
-                    loader: 'ejs-compiled-loader?htmlmin'
-                }]
-            }]
+                    ]
+                },
+                {
+                    test: /\.s(c|a)ss$/,
+                    exclude: helpers.root(appConfig.directory.src, appConfig.directory.app),
+                    loader: ExtractTextPlugin.extract({
+                        use: [{
+                                loader: 'css-loader',
+                                options: {
+                                    importLoaders: true,
+                                    sourceMap: true,
+                                    modules: true,
+                                    url: false
+                                }
+                            },
+                            {
+                                loader: 'postcss-loader',
+                                options: {
+                                    path: './postcss.config.js',
+                                    sourceMap: 'inline',
+                                    plugins: function () {
+                                        return [
+                                            require("autoprefixer")
+                                        ];
+                                    }
+                                }
+                            },
+                            'resolve-url-loader',
+                            {
+                                loader: "sass-loader",
+                                options: {
+                                    sourceMap: true
+                                }
+                            }
+                        ]
+                    })
+                },
+                {
+                    test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                    loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=' +
+                        appConfig.fontAssetsDir() + appConfig.assetsName.font
+                },
+                {
+                    test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                    loader: 'file-loader?name=' + appConfig.fontAssetsDir() + appConfig.assetsName.font
+                },
+                {
+                    test: /\.json$/,
+                    loader: 'json-loader'
+                },
+                {
+                    test: /\.ejs$/,
+                    use: [{
+                        loader: 'ejs-compiled-loader?htmlmin'
+                    }]
+                }
+            ]
         },
 
         // Plugins to avoid duplicate injection of dependent scripts and
@@ -211,7 +242,7 @@
                 filename: appConfig.bundleName.css,
                 disable: false,
                 allChunks: true
-            })
+            }),
         ],
         node: {
             global: true,

@@ -1,9 +1,9 @@
 <div *ngIf="alert.active" class="notification-container" [ngClass]="{
-    'bg-success text-white':alert.type === 'success',
-    'bg-danger text-white':alert.type === 'error',
-    'bg-warning text-dark':alert.type === 'warn',
-    'bg-info text-white':alert.type === 'info',
-    'bg-primary text-white':alert.type === ''
+    'bg-success text-white':alert && alert.type === 'success',
+    'bg-danger text-white':alert && alert.type === 'error',
+    'bg-warning text-dark':alert && alert.type === 'warn',
+    'bg-info text-white':alert && alert.type === 'info',
+    'bg-primary text-white':alert && alert.type === ''
 }">
     <div class="close-btn" *ngIf="alert.cancellable">
         <button type="button" class="close" aria-label="Close" (click)=onCloseBtnClick($event)>

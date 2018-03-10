@@ -1,0 +1,12 @@
+.DS_Store
+.classpath
+.project
+.settings
+.metadata
+reports
+node_modules
+dist
+target
+build
+typings
+bin

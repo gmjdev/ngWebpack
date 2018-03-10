@@ -11,6 +11,7 @@ import { LoginComponent } from './common/login/login.component';
 import { NavigationComponent } from './common/navigation/navigation.component';
 import { ContactUsComponent } from './contactus/contactus.component';
 import { HomeComponent } from './home/home.component';
+import { MapComponent } from './map/map.component';
 import { WeatherService } from './weather/weather.service';
 import { CommonModule } from './common/common.module';
 
@@ -24,7 +25,7 @@ import { CommonModule } from './common/common.module';
     ],
     declarations: [
         AppComponent, LoginComponent, AboutUsComponent, ContactUsComponent,
-        Http404Component, NavigationComponent, HomeComponent,
+        Http404Component, NavigationComponent, HomeComponent, MapComponent,
     ],
     providers: [AppService, WeatherService],
     bootstrap: [AppComponent],

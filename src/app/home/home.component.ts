@@ -4,6 +4,7 @@ import { Weather } from '../weather/model/weather.model';
 
 @Component({
     templateUrl: 'home.tpl.html',
+    styleUrls: ['home.css', 'home.scss'],
 })
 export class HomeComponent implements OnInit {
     private errorMessage: string;

@@ -8,12 +8,14 @@ import { ContactUsComponent } from './contactus/contactus.component';
 import { NavigationComponent } from './common/navigation/navigation.component';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { MapComponent } from './map/map.component';
 
 const appRoutes: Routes = [
     { path: 'aboutus', component: AboutUsComponent },
     { path: 'home', component: HomeComponent },
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'contactus', component: ContactUsComponent },
+    { path: 'map', component: MapComponent },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', component: Http404Component },
 ];
 

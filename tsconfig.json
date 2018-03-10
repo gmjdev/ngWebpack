@@ -12,7 +12,13 @@
         "allowSyntheticDefaultImports": true,
         "noEmit": true,
         "strictNullChecks": false,
-        "types": ["core-js", "node", "lodash", "jasmine"],
+        "types": [
+            "core-js",
+            "node",
+            "lodash",
+            "jasmine",
+            "googlemaps"
+        ],
         "typeRoots": [
             "./node_modules/@types"
         ],

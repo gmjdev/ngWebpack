@@ -79,7 +79,8 @@
 
         bundleName: {
             js: '[name].[hash].js',
-            css: '[name].[hash].css'
+            css: '[name].[hash].css',
+            appCss: '[name]-app.[hash].css'
         },
 
         assetsName: {
@@ -174,62 +175,5 @@
             files: ['src/**/*.js', '!node_modules/**/*'],
             htmlReportFileName: 'eslint.html'
         }
-        /**
-         * Task configuration
-         */
-        // banner: [
-        //     '/*! \n',
-        //     ' * <%= package.title || package.name %> - v<%= package.version %>\n',
-        //     ' * Release date : <%= new Date().getDate() + "-" + (new Date().getMonth()+1) + "-"' +
-        //     'new Date().getFullYear() % > \n ',
-        //     ' * Copyright (c) <%= new Date().getFullYear() %> Girish Mahajan, GM Corps.\n',
-        //     ' * All rights are reserved. Unauthorized copying of this file, via any medium\n',
-        //     ' * is strictly prohibited Proprietary and confidential.\n',
-        //     ' */\n'
-        // ].join(''),
-        // jsConcatSeparator: ';\n',
-        // jsConcatVendorFileName: '/js/<%= package.name %>-v<%= package.version %>-vendor.js',
-        // jsVendorMiniFileName: '/js/<%= package.name %>-v<%= package.version %>-vendor.min.js',
-        // jsConcatFileName: '/js/<%= package.name %>-v<%= package.version %>.js',
-        // jsMiniFileName: '/js/<%= package.name %>-v<%= package.version %>.min.js',
-        // cssConcatVendorFileName: '/css/<%= package.name %>-v<%= package.version %>-vendor.css',
-        // cssVendorMiniFileName: '/css/<%= package.name %>-v<%= package.version %>-vendor.min.css',
-        // cssConcatFileName: '/css/<%= package.name %>-v<%= package.version %>.css',
-        // cssMiniFileName: '/css/<%= package.name %>-v<%= package.version %>.min.css',
-        // outputHtmlPage: 'index.html',
-        // cssJsSourceMap: false,
-
-        /**
-         * Application Specific 3rd party dependencies
-         */
-        // jsVendor: ['jquery/dist/jquery.min.js',
-        //     'bootstrap/dist/js/bootstrap.js'
-        // ],
-        // cssVendor: ['bootstrap/dist/css/bootstrap.css',
-        //     'bootstrap/dist/css/bootstrap-theme.css',
-        // ],
-        // sassVendor: [],
-        // jsTestDeps: [],
-        // tsVendor: [],
-
-        /**
-         * Java Script file path configurations
-         */
-        // jsSource: ['src/app/**/*.js', '!src/app/**/*.spec.js'],
-        // jsTestSource: ['!src/app/**/*.js', 'src/**/*.spec.js'],
-        // jsConfig: ['config/**/*.js'],
-        // tsSource: ['src/app/**/*.ts'],        
-
-
-
-        /**
-         * AngularJS Templates file path configurations
-         */
-        // commonNgTemplates: ['src/app/common/**/*.tpl.html'],
-        // appNgTemplates: ['src/app/**/*.tpl.html',
-        //     '!src/app/common/**/*.tpl.html'
-        // ]
-
-
     };
 }());

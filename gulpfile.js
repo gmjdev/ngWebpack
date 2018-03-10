@@ -175,9 +175,7 @@
         config.entry.app.unshift("webpack-dev-server/client?" + baseUrl, "webpack/hot/dev-server");
         // Start a webpack-dev-server
         var server = new WebpackDevServer(webpack(config), {
-            stats: {
-                colors: true
-            },
+            stats: 'errors-only',
             quiet: true,
             noInfo: true,
             historyApiFallback: true,
