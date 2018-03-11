@@ -37,7 +37,6 @@
     var LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
     var AssetsPlugin = require('assets-webpack-plugin');
     var ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
-    var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
     var ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
     var sourceAppDir = helpers.resolvePathFromCwd(appConfig.appSourceDir());
     var isProd = environments.production();
@@ -57,7 +56,10 @@
     } else if (_.isArray(vendor)) {
         vendors = _.flattenDeep(vendor.concat(vendors));
     }
-    var extractSass = new ExtractTextPlugin(appConfig.bundleName.css);
+    var extractLibSass = new ExtractTextPlugin(appConfig.bundleName.css);
+    var extractAppSass = new ExtractTextPlugin(appConfig.bundleName.appCss);
+    var extractLibcss = new ExtractTextPlugin(appConfig.bundleName.css);
+    var extractAppcss = new ExtractTextPlugin(appConfig.bundleName.appCss);
 
     module.exports = {
         context: cwd,
@@ -81,6 +83,21 @@
                 appConfig.directory.bowerComponents
             ]
         },
+        optimization: {
+            minimize: false,
+            splitChunks: {
+                cacheGroups: {
+                    default: false,
+                    commons: {
+                        test: /jquery/,
+                        name: "vendor",
+                        chunks: "initial",
+                        minSize: 1,
+                        reuseExistingChunk: true
+                    }
+                }
+            }
+        },
         module: {
             rules: [{
                     test: /bootstrap\/dist\/js\/umd\//,
@@ -101,10 +118,7 @@
                 }, {
                     test: /\.css$/,
                     exclude: helpers.root(appConfig.directory.src, appConfig.directory.app),
-                    loader: ExtractTextPlugin.extract({
-                        fallback: 'raw-loader',
-                        use: ['css-loader?sourceMap']
-                    })
+                    loader: extractLibcss.extract('style-loader', 'raw-loader!css-loader?sourceMap')
                 }, {
                     test: /\.css$/,
                     include: helpers.root(appConfig.directory.src, appConfig.directory.app),
@@ -127,37 +141,35 @@
                 {
                     test: /\.s(c|a)ss$/,
                     exclude: helpers.root(appConfig.directory.src, appConfig.directory.app),
-                    loader: ExtractTextPlugin.extract({
-                        use: [{
-                                loader: 'css-loader',
-                                options: {
-                                    importLoaders: true,
-                                    sourceMap: true,
-                                    modules: true,
-                                    url: false
-                                }
-                            },
-                            {
-                                loader: 'postcss-loader',
-                                options: {
-                                    path: './postcss.config.js',
-                                    sourceMap: 'inline',
-                                    plugins: function () {
-                                        return [
-                                            require("autoprefixer")
-                                        ];
-                                    }
-                                }
-                            },
-                            'resolve-url-loader',
-                            {
-                                loader: "sass-loader",
-                                options: {
-                                    sourceMap: true
+                    use: extractLibSass.extract([{
+                            loader: 'css-loader',
+                            options: {
+                                importLoaders: true,
+                                sourceMap: true,
+                                modules: true,
+                                url: false
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                path: './postcss.config.js',
+                                sourceMap: 'inline',
+                                plugins: function () {
+                                    return [
+                                        require("autoprefixer")
+                                    ];
                                 }
                             }
-                        ]
-                    })
+                        },
+                        'resolve-url-loader',
+                        {
+                            loader: "sass-loader",
+                            options: {
+                                sourceMap: true
+                            }
+                        }
+                    ]),
                 },
                 {
                     test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -180,7 +192,6 @@
                 }
             ]
         },
-
         // Plugins to avoid duplicate injection of dependent scripts and
         // Inject generated CSS and JS files in Html page
         plugins: [
@@ -209,9 +220,6 @@
                 from: appConfig.assetsDir(),
                 to: appConfig.directory.assets
             }]),
-            new webpack.optimize.CommonsChunkPlugin({
-                name: ['app', 'vendor', 'polyfills']
-            }),
             new ContextReplacementPlugin(
                 // The (\\|\/) piece accounts for path separators in *nix and Windows
                 /angular(\\|\/)core(\\|\/)(esm5(\\|\/)|esm5(\\|\/)src|esm(\\|\/)src|src)(\\|\/)/,
@@ -238,11 +246,15 @@
                     postcss: [autoprefixer],
                 },
             }),
-            new ExtractTextPlugin({
-                filename: appConfig.bundleName.css,
-                disable: false,
-                allChunks: true
-            }),
+            // new ExtractTextPlugin({
+            //     filename: appConfig.bundleName.css,
+            //     disable: false,
+            //     allChunks: true
+            // }),
+            extractAppcss,
+            extractLibSass,
+            extractLibSass,
+            extractAppSass,
         ],
         node: {
             global: true,

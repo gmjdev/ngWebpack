@@ -5,7 +5,8 @@ import { Alert } from './model/alert.model';
 @Component({
     selector: 'notification',
     templateUrl: 'notification.tpl.html',
-    styleUrls: ['notification.scss'],
+    styleUrls: ['./notification.scss'],
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotificationComponent implements OnInit, OnDestroy {

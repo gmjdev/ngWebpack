@@ -33,6 +33,7 @@
 
     module.exports = webpackMerge(commonConfig, {
         devtool: 'cheap-module-eval-source-map',
+        mode: 'production',
         output: {
             path: path.resolve(cwd, appConfig.releaseDir()),
             filename: appConfig.bundleName.js,

@@ -12,6 +12,7 @@
         "allowSyntheticDefaultImports": true,
         "noEmit": true,
         "strictNullChecks": false,
+        "noStrictGenericChecks": true,
         "types": [
             "core-js",
             "node",
